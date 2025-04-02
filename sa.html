@@ -1,0 +1,144 @@
+<section id="registration-form-section" style="padding: 30px; background-color: #f4f8fc;">
+  <br><br><br><br>
+
+  <div class="reg-form-container">
+      <h2 class="reg-heading">Create a HealthConnect Account</h2>
+
+      <form id="registration-form" action="register.php" method="POST">
+          
+          <!-- Step 1: Personal Details -->
+          <div class="form-step" id="step-1">
+              <div class="reg-form-section">
+                  <label for="first-name">First Name*</label>
+                  <input type="text" id="first-name" name="first_name" placeholder="Enter your first name" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="last-name">Last Name*</label>
+                  <input type="text" id="last-name" name="last_name" placeholder="Enter your last name" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="birthday">Birthday*</label>
+                  <input type="date" id="birthday" name="birthday" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="gender">Gender*</label>
+                  <select id="gender" name="gender" required>
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                  </select>
+              </div>
+              <button type="button" class="btn next-btn">Next</button>
+          </div>
+
+          <!-- Step 2: Contact Information -->
+          <div class="form-step" id="step-2" style="display: none;">
+              <div class="reg-form-section">
+                  <label for="email">Email Address*</label>
+                  <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="phone-number">Phone Number*</label>
+                  <input type="text" id="phone-number" name="phone_number" required pattern="^09\d{9}$" title="Phone number must start with 09 and be 11 digits long" placeholder="09XXXXXXXXX">
+              </div>
+              <button type="button" class="btn back-btn">Back</button>
+              <button type="button" class="btn next-btn">Next</button>
+          </div>
+
+          <!-- Step 3: Health Information -->
+          <div class="form-step" id="step-3" style="display: none;">
+              <div class="reg-form-section">
+                  <label for="emergency-contact-name">Emergency Contact Name*</label>
+                  <input type="text" id="emergency-contact-name" name="emergency_contact_name" placeholder="Enter name" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="relationship">Relationship to Emergency Contact*</label>
+                  <input type="text" id="relationship" name="relationship" placeholder="Enter relationship" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="emergency_contact_phone">Emergency Contact Phone Number*</label>
+                  <input type="text" id="emergency_contact_phone" name="emergency_contact_phone" required pattern="09[0-9]{9}" title="Must start with '09' and be 11 digits long." placeholder="09XXXXXXXXX">
+              </div>
+              <button type="button" class="btn back-btn">Back</button>
+              <button type="button" class="btn next-btn">Next</button>
+          </div>
+
+          <!-- Step 4: Username and Password -->
+          <div class="form-step" id="step-4" style="display: none;">
+              <div class="reg-form-section">
+                  <label for="username">Username*</label>
+                  <input type="text" id="username" name="username" value="HC" readonly>
+              </div>
+              <div id="password-rules">
+                  <p>Password must include:</p>
+                  <ul>
+                      <li id="length" class="invalid">At least 8 characters</li>
+                      <li id="uppercase" class="invalid">At least one uppercase letter</li>
+                      <li id="lowercase" class="invalid">At least one lowercase letter</li>
+                      <li id="number" class="invalid">At least one number</li>
+                      <li id="special" class="invalid">At least one special character</li>
+                  </ul>
+              </div>
+              <div class="reg-form-section">
+                  <label for="password">Password*</label>
+                  <input type="password" id="password" name="password" placeholder="Create your password" required>
+              </div>
+              <div class="reg-form-section">
+                  <label for="confirm-password">Confirm Password*</label>
+                  <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+              </div>
+              <button type="button" class="btn back-btn">Back</button>
+              <button type="submit" id="submit-button" class="btn">Submit</button>
+          </div>
+      </form>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const steps = document.querySelectorAll(".form-step");
+      const nextBtns = document.querySelectorAll(".next-btn");
+      const backBtns = document.querySelectorAll(".back-btn");
+      let currentStep = 0;
+
+      function showStep(step) {
+          steps.forEach((el, index) => {
+              el.style.display = index === step ? "block" : "none";
+          });
+      }
+
+      nextBtns.forEach((btn, index) => {
+          btn.addEventListener("click", function () {
+              if (validateStep(currentStep)) {
+                  currentStep++;
+                  showStep(currentStep);
+              }
+          });
+      });
+
+      backBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+              currentStep--;
+              showStep(currentStep);
+          });
+      });
+
+      function validateStep(step) {
+          const fields = steps[step].querySelectorAll("input[required], select[required]");
+          for (let field of fields) {
+              if (!field.value.trim()) {
+                  alert("Please fill out all required fields.");
+                  return false;
+              }
+              if (field.pattern && !new RegExp(field.pattern).test(field.value)) {
+                  alert(field.title);
+                  return false;
+              }
+          }
+          return true;
+      }
+
+      showStep(currentStep);
+  });
+</script>
