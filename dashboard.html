@@ -4,25 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - HealthConnect</title>
+  <title>Dashboard - PharmaSync</title>
   <link href="style_PS.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-
-
 <body>
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <i class="burger-icon fas fa-bars" onclick="toggleFreeze()" id="burgerIcon"></i>
+  
     <div class="logo">
-      <img src="PS_img/PS_logo.png" alt="Logo">
+      <img src="PS_img/PS_logo.png" alt="Logo"><span>PharmaSync</span>
     </div>
+  
+    <div class="user-icon">
+      <i class="fas fa-user"></i>
+    </div>
+  
+    <!-- Profile Card (visible only when sidebar is hovered or frozen) -->
+    <div class="profile-card" onclick="showContent('account')">
+      <!-- Profile Picture -->
+      <img src="<?php echo $profilePic; ?>" alt="Profile Picture" id="profileImage">
+      
+      <div class="profile-info">
+        <!-- Displaying the user's first name, last name, and email fetched from PHP -->
+        <span class="name" id="first-name"><?php echo $firstName; ?></span>
+        <span class="email" id="email"><?php echo $email; ?></span>
+      </div>
+    </div>
+    
     <ul>
-      <li onclick="showContent('account')">
-        <i class="fas fa-user"></i><span>Account Details</span>
+      <li onclick="showContent('overview')">
+        <i class="fas fa-tachometer-alt"></i><span>Overview</span>
       </li>
       <li onclick="showContent('prescriptions')">
         <i class="ri-capsule-fill"></i><span>Prescription</span>
@@ -30,7 +46,6 @@
       <li onclick="showContent('settings')">
         <i class="fas fa-cogs"></i><span>Settings</span>
       </li>
-
       <li onclick="showLogoutConfirmation()">
         <i class="fas fa-sign-out-alt"></i><span>Logout</span>
       </li>
@@ -39,12 +54,64 @@
 
   <!-- Main Content -->
   <div class="wrapper">
+    <!-- Overview Panel (hidden by default) -->
+    <div id="overview" class="content-container-overview hidden">
+      <h1>Overview Panel</h1>
+    
+      <div class="overview-grid">
+        <!-- Updated Medication Card -->
+        <div class="overview-card medium">
+          <h2>Today's Medication</h2>
+    
+          <!-- Multiple Medication Cards (Can be generated dynamically) -->
+          <div class="medication-card">
+            <div class="med-card-header">
+              <img src="levothyroxine.jpg" alt="Medicine" class="med-img" />
+              <div class="med-info">
+                <h3 class="med-name">LEVOTHYROXINE</h3>
+                <p class="med-sub">Euthyrox · 25 mcg</p>
+                <p class="med-time">After breakfast</p>
+              </div>
+              <div class="more-options">⋮</div>
+            </div>
+            <div class="med-card-footer">
+              <button class="btn-skip">✕ Skip</button>
+              <button class="btn-done">✔ Done</button>
+            </div>
+          </div>
+    
+          <!-- Example: Add more medication-card blocks here if you have more meds -->
+        </div>
+    
+        <!-- Medication List -->
+        <div class="overview-card medium">
+          <h2>Next Medication</h2>
+          <p><strong>Active Medications</strong></p>
+          <p>Lisinopril - 10 mg (Twice a day)</p>
+          <p>Amoxicillin - 25 mg</p>
+          <a href="#">Past Medications</a>
+        </div>
+    
+        <!-- Reminders -->
+        <div class="overview-card medium">
+          <h2>Timeline</h2>
+          <p><strong>Upcoming Reminders</strong></p>
+          <a href="#">Customizable Reminders</a>
+        </div>
+    
+        <!-- Calendar -->
+        <div class="overview-card medium">
+          <h2>Adherence</h2>
+          <div class="calendar"></div>
+        </div>
+      </div>
+    </div>
+      
     <!-- Account Details -->
-    <div id="account" class="content-container">
+    <div id="account" class="content-container hidden">
       <h1>Account Details</h1>
       <table>
-        <tr><th>First Name</th><td id="first-name"></td></tr>
-        <tr><th>Last Name</th><td id="last-name"></td></tr>
+        <tr><th>First Name</th><td id="first-name"></td><td id="last-name"></td></tr>
         <tr><th>Birthday</th><td id="birthday"></td></tr>
         <tr><th>Emergency Contact</th><td id="emergency-contact"></td></tr>
         <tr><th>Username</th><td id="username"></td></tr>
@@ -56,251 +123,132 @@
       <button id="save-btn" class="hidden btn-dashboard" onclick="saveDetails()">Save</button>
     </div>
 
-      <!-- Prescriptions -->
-<!-- Prescription Tracker -->
-<div id="prescriptions" class="content-container hidden">
-  <h1>Prescription Tracker</h1>
+    <!-- Prescriptions -->
+    <div id="prescriptions" class="content-container hidden">
+      <h1>Prescription Tracker</h1>
+      <table id="prescriptions-table" class="prescriptions">
+        <thead>
+          <tr>
+            <th>Medicine Name</th>
+            <th>Dosage</th>
+            <th>Frequency</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Prescription data will be dynamically added here -->
+        </tbody>
+      </table>
+
+      <button onclick="window.location.href='add_prescription.html';" class="btn-dashboard">Add New Prescription</button>
+      <button onclick="showHistoryPrescriptions()" class="btn-dashboard">View Prescription History</button>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings" class="content-container hidden">
+      <h1>Settings</h1>
+      <table>
+        <tr>
+          <td><center><p class="alternate-action"><a href="PHP/change_pass.php">Change Password</a></p></center></td>
+        </tr>
+        <tr>
+          <td><center><p class="alternate-action"><a href="PHP/delete.php">Delete Account</a></p></center></td>
+        </tr>
+        <tr>
+          <td>
+            <h3><center>Notification Preferences</center></h3>
+          </td>
+        </tr>
+        <tr>  
+            <td>
+              <div class="switch-row">
+                <label for="toggleSwitch">Enable Notifications</label>
+                <label class="switch">
+                  <input type="checkbox" id="toggleSwitch">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            
+              <div class="switch-row">
+                <label for="notify-email">Receive via Email</label>
+                <label class="switch">
+                  <input type="checkbox" id="notify-email">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            
+              <div class="switch-row">
+                <label for="notify-sms">Receive via SMS</label>
+                <label class="switch">
+                  <input type="checkbox" id="notify-sms">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            
+              <button onclick="saveNotificationPreferences()" class="btn-dashboard">Save Preferences</button>
+            </td>
+        
+        </tr>
+      </table>
+    </div>
+
+
+    <!-- Logout -->
+    <div id="logoutModal" class="modal">
+      <div class="modal-content">
+        <h2>You have successfully logged out!</h2><br>
+        <p>Click "OK" to go back to the login page.</p><br>
+        <button onclick="goToLogin()" class="btn-dashboard">OK</button>
+        <button type="button" onclick="window.location.href='dashboard.html';" class="btn-dashboard">Cancel</button>
+      </div>
+    </div>
+
+  <!-- Logout JS -->
+
+  <script>  
+  function showLogoutConfirmation() {
+    // Show the logout modal
+    document.getElementById('logoutModal').style.display = 'block';
+  }
+  function goToLogin() {
+    window.location.href = "login.html";
+  }
   
-  <table id="prescriptions-table" class="prescriptions">
-    <thead>
-      <tr>
-        <th>Medicine Name</th>
-        <th>Dosage</th>
-        <th>Frequency</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Doctor</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Prescription data will be dynamically added here -->
-    </tbody>
-  </table>
+  window.onclick = function(event) {
+    const modal = document.getElementById('logoutModal');
+  
+    // If the user clicks outside the modal (on the background), hide it
+    if (event.target == modal) {
+      modal.style.display = 'none';
+  
+      
+      // Redirect to index page
+      window.location.href = "index.html";
+    }
+  };
+</script>  
 
-  <button onclick="window.location.href='add_prescription.html';" class="btn-dashboard">Add New Prescription</button>
-  <button onclick="showHistoryPrescriptions()" class="btn-dashboard">View Prescription History</button>
-</div>
 
-<script>
-  // Fetch and display current prescriptions
-  function loadPrescriptions() {
-    fetch('fetch_prescriptions.php')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#prescriptions-table tbody');
-        tableBody.innerHTML = '';
-
-        if (data.length === 0) {
-          tableBody.innerHTML = '<tr><td colspan="7">No active prescriptions.</td></tr>';
-          return;
+    <!-- JavaScript -->
+    <script>  
+        // Sidebar Functions
+        function toggleFreeze() {
+          document.getElementById('sidebar').classList.toggle('frozen');
         }
-
-        data.forEach(prescription => {
-          const row = `
-            <tr>
-              <td>${prescription.medicine_name}</td>
-              <td>${prescription.dosage}</td>
-              <td>${prescription.frequency}</td>
-              <td>${prescription.start_date}</td>
-              <td>${prescription.end_date}</td>
-              <td>${prescription.doctor}</td>
-              <td>${prescription.notes || 'N/A'}</td>
-            </tr>
-          `;
-          tableBody.innerHTML += row;
-        });
-      })
-      .catch(error => console.error('Error loading prescriptions:', error));
-  }
-
-  // Load prescriptions when page loads
-  document.addEventListener('DOMContentLoaded', loadPrescriptions);
-
-  // Show past prescriptions
-  function showHistoryPrescriptions() {
-    fetch('fetch_history_prescriptions.php')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#prescriptions-table tbody');
-        tableBody.innerHTML = '';
-
-        if (data.length === 0) {
-          tableBody.innerHTML = '<tr><td colspan="7">No past prescriptions found.</td></tr>';
-          return;
+      
+        function showContent(id) {
+          document.querySelectorAll('.content-container, .content-container-overview').forEach(section => {
+            section.classList.add('hidden');
+          });
+          document.getElementById(id).classList.remove('hidden');
         }
-
-        data.forEach(prescription => {
-          const row = `
-            <tr>
-              <td>${prescription.medicine_name}</td>
-              <td>${prescription.dosage}</td>
-              <td>${prescription.frequency}</td>
-              <td>${prescription.start_date}</td>
-              <td>${prescription.end_date}</td>
-              <td>${prescription.doctor}</td>
-              <td>${prescription.notes || 'N/A'}</td>
-            </tr>
-          `;
-          tableBody.innerHTML += row;
-        });
-      })
-      .catch(error => console.error('Error loading history prescriptions:', error));
-  }
-</script>
-
-<!-- Settings -->
-<div id="settings" class="content-container hidden">
-  <h1>Settings</h1>
-  <table>
-    <tr>
-      <td><center><p class="alternate-action"><a href="change_password.php">Change Password</a></p></center></td>
-    </tr>
-    <tr>
-      <td><center><p class="alternate-action"><a href="delete.php">Delete Account</a></p></center></td>
-    </tr>
-    <tr>
-      <td>
-        <h3>Notification Preferences</h3>
-        <label>
-          <input type="checkbox" id="notify-email"> Receive Notifications via Email
-        </label>
-        <br>
-        <label>
-          <input type="checkbox" id="notify-sms"> Receive Notifications via SMS
-        </label>
-        <br>
-        <button onclick="saveNotificationPreferences()" class="btn-dashboard">Save Preferences</button>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<script>
-  // Fetch and display saved notification preferences
-  function loadNotificationPreferences() {
-    fetch('fetch_notification_preferences.php')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('notify-email').checked = data.email;
-        document.getElementById('notify-sms').checked = data.sms;
-      })
-      .catch(error => console.error('Error loading preferences:', error));
-  }
-
-  document.addEventListener('DOMContentLoaded', loadNotificationPreferences);
-
-  // Save notification preferences
-  function saveNotificationPreferences() {
-    const email = document.getElementById('notify-email').checked;
-    const sms = document.getElementById('notify-sms').checked;
-
-    fetch('update_notification_preferences.php', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ email, sms })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert('Notification preferences updated successfully!');
-      } else {
-        alert('Failed to update preferences.');
-      }
-    })
-    .catch(error => console.error('Error saving preferences:', error));
-  }
-</script>
-  <!-- JavaScript -->
-  <script>
-    // Logout Functions
-    function showLogoutConfirmation() {
-      document.getElementById('logoutModal').style.display = 'block';
-    }
-
-    function goToLogin() {
-      window.location.href = "login.html";
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById('logoutModal');
-      if (event.target == modal) {
-        modal.style.display = 'none';
-        window.location.href = "index.html";
-      }
-    };
-
-    // Sidebar Functions
-    function toggleFreeze() {
-      document.getElementById('sidebar').classList.toggle('frozen');
-    }
-
-    function showContent(id) {
-      document.querySelectorAll('.content-container').forEach(section => {
-        section.classList.add('hidden');
-      });
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    // Fetch User Data
-    fetch('fetch_user_data.php')
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          alert(data.error);
-          return;
-        }
-
-        const user = data.user || {};
-        const fields = ['first-name', 'last-name', 'birthday', 'emergency-contact', 'username', 'gender', 'email', 'phone'];
-        fields.forEach(field => {
-          document.getElementById(field).innerText = user[field.replace('-', '_')] || "N/A";
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        alert('An error occurred while fetching data. Please try again later.');
-      });
-
-    // Enable Editing Personal Details
-    function enableEditing() {
-      const fields = ['first-name', 'last-name', 'birthday', 'emergency-contact', 'username', 'gender', 'email', 'phone'];
-      fields.forEach(field => {
-        const element = document.getElementById(field);
-        element.innerHTML = `<input type="text" id="${field}-input" value="${element.innerText}">`;
-      });
-
-      document.getElementById('edit-btn').classList.add('hidden');
-      document.getElementById('save-btn').classList.remove('hidden');
-    }
-
-    // Save Updated Personal Details
-    function saveDetails() {
-      const fields = ['first-name', 'last-name', 'birthday', 'emergency-contact', 'username', 'gender', 'email', 'phone'];
-      let updatedData = {};
-
-      fields.forEach(field => {
-        const inputElement = document.getElementById(`${field}-input`);
-        updatedData[field] = inputElement.value;
-        document.getElementById(field).innerText = inputElement.value;
-      });
-
-      document.getElementById('edit-btn').classList.remove('hidden');
-      document.getElementById('save-btn').classList.add('hidden');
-
-      fetch('update_user_data.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(updatedData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (!data.success) {
-          console.error("Update failed:", data.message);
-        }
-      })
-      .catch(error => console.error('Error:', error));
-    }
-  </script>
+      
+        // Make "Overview" the default content when the page loads
+        window.onload = function() {
+          showContent('overview');
+        };
+      
+    </script>
 </body>
 </html>

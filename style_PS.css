@@ -310,23 +310,27 @@ nav{
 
 
 
-/* button */
+/* buttonses */
 
-.btn-index{
+/* INDEX PAGE BUTTON (Animated Hover Background) */
+.btn-index {
     margin-top: 1rem;
     display: inline-block;
     font-size: 1.5rem;
-	font-weight: 400;
+    font-weight: 400;
     color: #fff;
-    border: .15rem solid var(--outlines);
+    border: 0.15rem solid var(--outlines);
     background: transparent;
     cursor: pointer;
     position: relative;
-    padding: .6rem 3rem;
+    padding: 0.6rem 3rem;
     overflow: hidden;
     z-index: 1;
+    border-radius: 5px;
+    transition: color 0.3s;
 }
-.btn-index:before{
+
+.btn-index::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -335,21 +339,55 @@ nav{
     position: absolute;
     top: 0;
     left: -100%;
-    transition: 0.3s;
+    transition: left 0.3s;
 }
-.btn-index:hover.btn-index:before{
+
+.btn-index:hover::before {
     left: 0;
 }
 
-.section #our-story, .section #home-menu-book{
-	padding: 70px 14% 60px;
+.btn-index:hover {
+    color: #fff;
+}
+
+
+/* GENERAL BUTTON STYLES */
+.btn-login, 
+.btn, 
+.btn-dashboard, 
+.button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: var(--darkblue);
+    color: white;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 5px;
+    width: 100%;
+}
+
+.btn-login:hover, 
+.btn:hover, 
+.btn-dashboard:hover, 
+.button:hover {
+    background-color: var(--outlines); 
+    transform: scale(1.02); 
+}
+
+.btn-dashboard::before,
+.btn-login::before,
+.btn::before,
+.button::before {
+    content: none;
 }
 
 
 
 
 /* OUR STORY SEC */
-.our-story, .home-menu-book {
+.our-story {
     margin: 0;
     padding: 70px 14% 60px;
     position: relative;
@@ -363,12 +401,12 @@ nav{
     font-family: 'Century Gothic';
 }
 
-.our-story-text, .home-menu-text {
+.our-story-text {
     margin-left: 5%; /* Adjusted for better responsiveness */
     margin-right: 5%; /* Added right margin for symmetry */
 }
 
-.our-story-text p, .home-menu-text p, .home-menu-book .right p {
+.our-story-text p, .right p {
     color: #151515;
     height: auto; /* Change height to auto for better responsiveness */
     font-size: 1.3rem; /* Consider changing to responsive units like 'vw' or 'em' */
@@ -376,7 +414,7 @@ nav{
     line-height: 1.5; /* Improved line height for readability */
 }
 
-.our-story-text h1, .home-menu-text h1, .home-menu-book .right h3 {
+.our-story-text h1, .right h3 {
     margin-top: 0;
     font-size: 3.2rem; /* Use a smaller default size for better responsiveness */
     font-weight: 700;
@@ -388,61 +426,29 @@ nav{
 
 }
 
-.home-menu-img { /* Apply styles to both image containers */
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    margin-right: 20px; /* Add space to the right of the image */
-}
-
-.home-menu-img img { /* Apply styles to both images */
-    width: 100%; /* Make the image responsive */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensures the image covers the area */
-    border-radius: 8px; /* Rounded corners for the image */
-}
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
-    .our-story, .home-menu-book {
+    .our-story {
         grid-template-columns: 1fr; /* Stack images and text vertically */
         align-items: center; /* Center vertically on smaller screens */
         padding: 50px 5%; /* Reduce padding on smaller screens */
     }
-
-    .home-menu-img {
-        margin-right: 0; /* Remove right margin */
-        margin-bottom: 20px; /* Add margin below the image */
-        order: -1; /* Place image on top when stacked */
-    }
 }
 
 @media (max-width: 480px) {
-    .our-story-text h1, .testimonials h1, .home-menu-book .right h3 {
+    .our-story-text h1, .testimonials h1, .right h3 {
         font-size: 2rem; /* Further decrease font size for mobile devices */
     }
 
-    .our-story-text p, .testimonials p, .home-menu-book .right p {
+    .our-story-text p, .testimonials p, .right p {
         font-size: 0.9rem; /* Decrease paragraph size for mobile */
     }
 
-    .our-story, .home-menu-book {
+    .our-story{
         padding: 40px 2%; /* Further reduce padding for mobile */
     }
 }
-
-.our-story-text .btn-index, .JoinUs .btn-index {
-    color: var(--darkblue);
-}
-
-.our-story-text .btn-index:hover, .JoinUs .btn-index:hover {
-    color: var(--text-color);
-}
-
-
-
-
-
 
 
 
@@ -458,8 +464,6 @@ nav{
     grid-row: unset;
   }
 }
-
-
 
 
 
@@ -626,18 +630,6 @@ nav{
 /* END FAQ - text */
 
 
-.button {
-    display: inline-block; /* Inline block for button */
-    padding: 10px 20px; /* Button padding */
-    background-color: var(--outlines); /* Background color for button */
-    color: white; /* Text color for button */
-    text-decoration: none; /* Remove underline from link */
-    border-radius: 5px; /* Rounded corners for button */
-    transition: background-color 0.3s; /* Transition effect */
-}
-.button:hover {
-    background-color: darkred; /* Darker red on hover */
-}
 .faq-question {
     width: 100%;
     max-width: 1200px;
@@ -1138,133 +1130,7 @@ nav{
 	}
 }
 
-
-
-
-
-
-
-
-    
-
-.book-now .form form input, .book-now .form form select, select{
-    display: block;
-    margin: 2rem 0;
-    width: 100%;
-    background: none;
-    border-bottom: .1rem solid #b7b3b3;
-    color: #03426a  ;
-    font-size: 1.5rem;
-    font-weight: 300;
-}
-
-.book-now .form form input::placeholder{
-    color: #03426a ;
-}
-
-
-.heading{
-    text-align: center;
-    color: var(--darkblue);
-    font-family: 'Etna';
-    font-size: 4.5rem;
-    padding-bottom: 1rem;
-    letter-spacing: 1.3px;
-    flex-wrap: wrap;
-    
-}
-
-
-
-.submitted .submit-overlay{
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  display: none;
-}
-
-.submitted .content{
-  position: absolute;
-  /* top: 20%;
-  left: 20%;
-  right: 80%;
-  bottom: 60%; */
-  margin: 20% 75% 60% 15%;
-  transform: translate(50%, -50%) scale(0);
-  background-color: #151515;
-  width: 40rem;
-  height: 20rem;
-  z-index: 2;
-  text-align: center;
-  padding: 5rem;
-  box-sizing: border-box;
   
-}
-
-.btn{
-  z-index: 1;
-}
-.topbtn{
-  z-index: 0;
-}
-.submitted .content p{
-  font-size: 1.5rem;
-}
-
-.submitted .close-btn{
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 30px;
-  color: var(--outlines);
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 30px;
-  text-align: center;
-}
-
-.btn-holder a{
-  margin: 2rem;
-  color: var(--outlines);
-  font-weight: 600;
-  font-size: 1.6rem;
-}
-
-.submitted.active .submit-overlay{
-  display: block; 
-}
-
-.submitted.active .content{
-  transition: all 200ms ease-in-out;
-  transform: translate(50%, -50%) scale(1);
-}
-
-.submit-view.active{
-	opacity: 1;
-	visibility: visible;
-}
-.popup-btn{
-  margin-top: 1rem;
-    display: inline-block;
-    font-size: 1.5rem;
-	  font-weight: 400;
-    color: #fff;
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    padding: .3rem 2rem;
-    overflow: hidden;
-    z-index: 1;
-}
-
-
-
-
 /* Login */
 .auth-section {
     display: flex;
@@ -1282,7 +1148,7 @@ nav{
     width: 500px; /* Set a fixed width */
 }
 
-h1 {
+.auth-section h1 {
     text-align: center; /* Center the title */
     margin-bottom: 20px; /* Space below the title */
     color: var(--darkblue); /* Medical blue color */
@@ -1302,48 +1168,10 @@ label {
     color: #181818; /* Dark text color for readability */
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%; /* Full width */
-    padding: 12px; /* Padding inside the input */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    box-sizing: border-box; /* Include padding and border in total width */
-    font-size: 1rem; /* Font size for inputs */
-    transition: border-color 0.3s; /* Smooth border transition */
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: var(--darkblue); /* Blue border on focus */
-    outline: none; /* Remove default outline */
-}
-
 .form-actions {
     display: flex; /* Use flexbox for buttons */
     justify-content: space-between; /* Space between buttons */
 }
-
-.btn-login {
-    padding: 10px 15px; /* Padding inside buttons */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    transition: background-color 0.3s; /* Smooth background transition */
-    font-size: 20px; /* Font size for buttons */
-    flex: 1; /* Allow buttons to grow equally */
-    margin: 0 5px; /* Space between buttons */
-}
-
-.btn-login {
-    background-color: var(--darkblue); /* Medical blue background */
-    color: white; /* White text */
-}
-
-.btn-login:hover {
-    background-color: var(--darkblue); /* Darker blue on hover */
-}
-
 
 .alternate-action {
     text-align: center; /* Center the alternate action text */
@@ -1364,7 +1192,10 @@ input[type="password"]:focus {
 
 
 
+
+
 /* Registration */
+/* Container Styling */
 .reg-form-container {
     background-color: #ffffff;
     padding: 30px;
@@ -1375,34 +1206,35 @@ input[type="password"]:focus {
     margin: 50px auto;
 }
 
-.reg-form-container p{
+/* Titles and Text */
+.reg-form-container h3 {
+    text-align: left;
+    color: var(--darkblue);
+    font-size: 35px;
+    margin: 20px 0;
+}
+
+.reg-form-container span {
+    display: block;
+    text-align: left;
+    color: var(--darkblue);
+    font-size: 35px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.reg-form-container p {
     font-size: 15px;
     text-align: left;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin: 20px 0 30px;
     color: var(--darkblue);
 }
 
-.reg-form-container h3{
-    text-align: left;
-    color: var(--darkblue);
-    font-size: 35px;    
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.reg-form-container span{
-    text-align: left;
-    color: var(--darkblue);
-    font-size: 35px;    
-    margin-bottom: 20px;
-    align-items: center;
-    font-weight:bold;
-}
+/* Sectioning */
 .reg-form-section {
     margin-bottom: 20px;
     font-size: 18px;
-  }
+}
 
 .form-section {
     display: none;
@@ -1412,85 +1244,48 @@ input[type="password"]:focus {
     display: block;
 }
 
+/* Labels */
 label {
     display: block;
     margin-top: 10px;
     font-weight: bold;
 }
 
+/* Input & Textarea Styling */
 input[type="text"],
+input[type="password"],
 input[type="email"],
-input[type="date"] {
+input[type="date"],
+textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-input[required]:invalid,
-textarea[required]:invalid {
-    border: 1px solid #03426a; /* Red border for invalid fields */
+/* Focused State */
+input:focus,
+textarea:focus {
+    border-color: var(--darkblue);
+    outline: none;
 }
 
 input[required]:valid,
 textarea[required]:valid {
-    border: 1px solid #ccc; /* Default border for valid fields */
+    border: 1px solid #cc2e9d; /* green for valid */
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="date"]:focus{
-    border-color: #2b7cd1; /* Blue border for focused fields */
-    outline: none;
+textarea {
+    height: 100px;
 }
-
-.btn-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.btn {
-    padding: 10px 20px;
-    background-color: var(--foot);
-    color: white;
-    border: none;
-    border-radius: 1px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-
-
-.btn:hover {
-    background-color: var(--darkblue);
-}
-
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-  
-    textarea {
-      height: 100px;
-    }
-  
-    .required {
-      color: red;
-    }
-
-
-.valid { color: green; }
-.invalid { color: red; }    
 
 
 /* -------------- DASHBOARD ------------------ */
 
- 
     /* Sidebar Styling */
     .sidebar {
         width: 80px;
@@ -1505,6 +1300,7 @@ input[type="date"]:focus{
         left: 0;
         height: 100%;
         z-index: 1000;
+        pointer-events: auto; 
       }
   
       .sidebar:hover:not(.frozen) {
@@ -1513,16 +1309,29 @@ input[type="date"]:focus{
   
       .sidebar .logo {
         text-align: center;
-        padding: 20px;
+        padding: 15px;
+        margin-top: 15px;
+
       }
   
       .sidebar .logo img {
         width: 40px;
       }
+
+      .sidebar .logo span {
+        font-size: 1.3rem;  
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+        align-items: center;
+      }
   
+
+
       .sidebar .burger-icon {
         position: absolute;
-        top: 10px;
+        top: 30px;
         right: 10px;
         font-size: 1.5rem;
         color: var(--text-color);
@@ -1546,7 +1355,7 @@ input[type="date"]:focus{
       .sidebar ul {
         list-style: none;
         padding: 0;
-        margin: 50px 0 0 0;
+        margin: 0;
         display: flex;
         flex-direction: column;
       }
@@ -1577,7 +1386,8 @@ input[type="date"]:focus{
         transition: opacity 0.3s;
       }
   
-      .sidebar:hover:not(.frozen) ul li span {
+      .sidebar:hover:not(.frozen) ul li span,       
+      .sidebar:hover:not(.frozen) .logo span {
         opacity: 1;
       }
   
@@ -1585,10 +1395,88 @@ input[type="date"]:focus{
         width: 250px;
       }
   
-      .sidebar.frozen ul li span {
+      .sidebar.frozen ul li span,
+      .sidebar.frozen .logo span {
         opacity: 1;
       }
+
+
+
+
+
+        
+  /* User Icon - visible when sidebar is not hovered */
+  .sidebar .user-icon {
+    display: block;
+    padding: 15px;
+    margin-right: 10px;
+    background-color: var(--darkblue);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
   
+  .sidebar .user-icon i {
+    font-size: 1.5rem;
+    color: var(--text-color);
+  }
+  
+  .sidebar .profile-card {
+    display: none; 
+    align-items: center;
+    padding: 15px;
+    margin: 10px 20px 0 20px;
+    gap: 10px;
+    background-color: var(--text-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    overflow: hidden;
+  }
+  
+  .sidebar .profile-card img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--darkblue);
+  }
+  
+  .sidebar .profile-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar .profile-info .name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--darkblue);
+
+  }
+  
+  .sidebar .profile-info .email {
+    font-size: 0.85rem;
+    color: var(--darkblue);
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  
+  /* Show profile card when sidebar is hovered or frozen */
+  .sidebar:hover .profile-card,
+  .sidebar.frozen .profile-card {
+    display: flex; /* Show profile card */
+  }
+  
+  /* Hide user icon when sidebar is hovered or frozen */
+  .sidebar:hover .user-icon,
+  .sidebar.frozen .user-icon {
+    display: none; /* Hide user icon */
+  }
+  
+
+
+
       /* Main Content Container */
       .content-container {
         margin: auto;
@@ -1599,21 +1487,39 @@ input[type="date"]:focus{
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        align-items: center;
-            
+        display: flex; /* Enable flexbox */
+        flex-direction: column; /* Ensure content is arranged vertically */
+        justify-content: flex-end; /* Pushes content (buttons) to the bottom */
+        align-items: center; /* Center content horizontally */
+        min-height: 400px; /* Ensure container has a minimum height */
+        max-height: 1000px; /* Prevent container from growing too large */
+      }
+      .content-container-overview {
+        margin: auto;
+        width: 73%;
+        max-width: 2000px;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        align-items: center;           
       }
   
-      .content-container h1 {
+      .content-container h1,
+      .content-container-overview h1{
         margin-bottom: 10px;
         color: var(--darkblue) ;
         font-size: 2rem;
       }
   
-      .content-container p {
+      .content-container p,
+      .content-container-overview p {
         font-size: 1.7rem;
         margin-bottom: 20px;
       }
   
+
+
+      
       .hidden {
         display: none;
       }
@@ -1665,19 +1571,24 @@ input[type="date"]:focus{
 
 
           /* Modal Styles - for the pop-up*/
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed;
-        z-index: 5; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
-        overflow: auto; /* Enable scroll if needed */
-        padding-top: 100px;
-      }
-    
+          .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1050; /* Modal's z-index should be higher than the sidebar */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+            overflow: auto; /* Enable scroll if needed */
+            padding-top: 100px;
+        }
+        
+        /* When the modal is active, show it */
+        .modal.active {
+            display: block; /* Modal visible when active */
+        }
+            
       .modal-content {
         background-color: white;
         margin: 5% auto;
@@ -1685,49 +1596,10 @@ input[type="date"]:focus{
         border-radius: 10px;
         width: 60%; /* Adjust width as needed */
         text-align: center;
+        color: var(--darkblue);
       }
 
-      .btn-dashboard {
-        padding: 10px 15px; /* Padding inside buttons */
-        border: none; /* Remove default border */
-        cursor: pointer; /* Change cursor on hover */
-        transition: background-color 0.3s; /* Smooth background transition */
-        font-size: 20px; /* Font size for buttons */
-        flex: 1; /* Allow buttons to grow equally */
-        margin: 0 5px; /* Space between buttons */
-      }
-    
-      .btn-dashboard {
-        background-color: var(--darkblue) ;
-        color: rgb(255, 255, 255); /* White text */
-      }
-    
-      .btn-dashboard:hover {
-        background-color: #03426a; /* Darker blue on hover */
-      }
-  
-    
-      .btn-dashboard:hover:before {
-        left: 0;
-      }
-  
-      .delete-btn{
-        padding: 5px 10px; /* Padding inside buttons */
-        border: none; /* Remove default border */
-        cursor: pointer; /* Change cursor on hover */
-        transition: background-color 0.3s; /* Smooth background transition */
-        font-size: 12px; /* Font size for buttons */
-        flex: 1; /* Allow buttons to grow equally */
-        margin: 0 5px; /* Space between buttons */
-        font-family: 'etna';
-      }
-  
-      .delete-btn{
-        background-color: #005ab9; /* Medical blue background */
-        color: rgb(255, 255, 255); /* White text */
-      }
-  
-      .alternate-action {
+       .alternate-action {
         text-align: center; /* Center the alternate action text */
         margin-top: 15px; /* Space above the text */
       }
@@ -1743,4 +1615,200 @@ input[type="date"]:focus{
         text-decoration: underline; /* Underline on hover */
       }  
   
-  
+      
+
+      .overview-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .overview-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        color: var(--darkblue);
+        text-align: left;
+
+    }
+    
+    .overview-card h2 {
+        margin-bottom: 10px;
+    }
+   
+    .overview-card.large {
+        grid-column: span 3;
+    }
+    
+    .overview-card.medium {
+        grid-column: span 2;
+        height: 400px;
+    }
+    
+    .overview-card.small {
+        grid-column: span 1;
+    }
+    
+    .calendar {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .chart-placeholder {
+        height: 100px;
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .profile-link {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .medication-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        padding: 15px;
+        margin: 15px 0;
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .med-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .med-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+      
+      .med-info {
+        flex: 1;
+        margin-left: 15px;
+      }
+      
+      .med-name {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      
+      .med-sub {
+        margin: 2px 0;
+        color: gray;
+        font-size: 0.9rem;
+      }
+      
+      .med-time {
+        font-size: 0.95rem;
+        color: #333;
+      }
+      
+      .more-options {
+        font-size: 20px;
+        cursor: pointer;
+        padding: 5px;
+      }
+      
+      .med-card-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+      
+      .btn-skip, .btn-done {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.95rem;
+      }
+      
+      .btn-skip {
+        background-color: #f2f2f2;
+        color: #555;
+      }
+      
+      .btn-done {
+        background-color: #2ecc71;
+        color: white;
+      }
+      
+
+
+
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+      
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #ccc;
+        border-radius: 34px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: 0.4s;
+      }
+      
+      .slider::before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+      }
+      
+      input:checked + .slider {
+        background-color: var(--darkblue);
+      }
+      
+      input:checked + .slider::before {
+        transform: translateX(22px);
+      }
+      .switch-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        gap: 20px;
+      }
+      
+      .switch-row label:first-child {
+        flex: 1;
+        font-size: 16px;
+      }
+            
