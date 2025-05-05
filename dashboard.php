@@ -1362,7 +1362,7 @@ function exportHistoryToPDF() {
 
 </script>
 
-
+ </div>
 
 
 
